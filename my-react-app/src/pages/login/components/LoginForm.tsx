@@ -2,13 +2,13 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faKey } from '@fortawesome/free-solid-svg-icons';
-import { FaGoogle, FaGithub, FaDiscord } from 'react-icons/fa';
+import { FaGoogle, FaGithub } from 'react-icons/fa';
 import { useAuth } from '../../../hooks/useAuth';
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { loginWithEmail, loginWithGoogle, loginWithGithub, loginWithDiscord, error } = useAuth();
+  const { loginWithEmail, loginWithGoogle, loginWithGithub, error } = useAuth();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,7 +31,6 @@ const LoginForm: React.FC = () => {
         <div>
           <button onClick={loginWithGoogle}><FaGoogle /> Google</button>
           <button onClick={loginWithGithub}><FaGithub /> GitHub</button>
-          <button onClick={loginWithDiscord}><FaDiscord /> Discord</button>
         </div>
       </div>
     </div>
