@@ -1,68 +1,62 @@
-import { Form, useNavigate, Link } from "react-router-dom";
-import { userRegisterForm } from "../hooks";
-import _ from "lodash";
+// src/components/RegisterForm.tsx
+import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faEnvelope, faKey, faUnlockKeyhole } from '@fortawesome/free-solid-svg-icons';
+import { FaGoogle, FaGithub, FaDiscord } from 'react-icons/fa';
+import { useAuth } from '../../../hooks/useAuth';
+const RegisterForm: React.FC = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const { registerWithEmail, loginWithGoogle, loginWithGithub, loginWithDiscord, error } = useAuth();
 
-export const RegisterForm = () => {
-  const { getFieldProps, touched, errors, isValid, dirty } = useRegisterForm();
-  const navigate = useNavigate();
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      alert('Passwords do not match!');
+      return;
+    }
+    await registerWithEmail(email, password);
+  };
 
   return (
-    <div className="p-4 w-full">
-      <Form method="post" action="/signup">
-        <div className="space-y-4">
-          <div className={`form-control ${touched.fullName && errors.fullName ? "has-error" : ""}`}>
-            <label className="mb-2 block">Full Name</label>
-            <input
-              id="fullName"
-              required
-              {...getFieldProps("fullName")}
-              className="input input-bordered w-full"
-            />
-            {touched.fullName && errors.fullName && (
-              <p className="text-red-600 mt-1">{errors.fullName}</p>
-            )}
-          </div>
-          <div className={`form-control ${touched.username && errors.username ? "has-error" : ""}`}>
-            <label className="mb-2 block">Username</label>
-            <input
-              id="username"
-              required
-              {...getFieldProps("username")}
-              className="input input-bordered w-full"
-            />
-            {touched.username && errors.username && (
-              <p className="text-red-600 mt-1">{errors.username}</p>
-            )}
-          </div>
-          <div className={`form-control ${touched.password && errors.password ? "has-error" : ""}`}>
-            <label className="mb-2 block">Password</label>
-            <input
-              id="password"
-              required
-              type="password"
-              autoComplete="on"
-              {...getFieldProps("password")}
-              className="input input-bordered w-full"
-            />
-            {touched.password && errors.password && (
-              <p className="text-red-600 mt-1">{errors.password}</p>
-            )}
-          </div>
-          <div className="pt-2 flex flex-col gap-2">
-            <button
-              type="submit"
-              className="btn btn-primary w-full"
-              disabled={!dirty || !isValid}
-            >
-              Register
-            </button>
-            <div className="flex gap-1">
-              <span className="text-base">Already have an account?</span>
-              <Link to="/login" className="text-blue-600">Sign In</Link>
-            </div>
-          </div>
+    <div>
+      <h3>Create account for your own.</h3>
+      <div>
+        <input type="text" placeholder="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+        <div>
+          <FontAwesomeIcon icon={faUser} />
+          <input type="text" placeholder="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+          <FontAwesomeIcon icon={faUser} />
         </div>
-      </Form>
+        <div>
+          <FontAwesomeIcon icon={faEnvelope} />
+          <input type="email" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <FontAwesomeIcon icon={faEnvelope} />
+        </div>
+        <div>
+          <FontAwesomeIcon icon={faKey} />
+          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <FontAwesomeIcon icon={faKey} />
+        </div>
+        <div>
+          <FontAwesomeIcon icon={faUnlockKeyhole} />
+          <input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+          <FontAwesomeIcon icon={faUnlockKeyhole} />
+        </div>
+        {error && <div className="error">{error}</div>}
+        <button onClick={handleRegister}>Register</button>
+        <div>or</div>
+        <div>
+          <button onClick={loginWithGoogle}><FaGoogle /> Google</button>
+          <button onClick={loginWithGithub}><FaGithub /> GitHub</button>
+          <button onClick={loginWithDiscord}><FaDiscord /> Discord</button>
+        </div>
+      </div>
     </div>
   );
 };
+
+export default RegisterForm;

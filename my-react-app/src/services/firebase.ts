@@ -1,20 +1,17 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/database';
+// src/firebase.ts
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCqz6nJ7z5Y6Y9Y6Y6Y6Y6Y6Y6Y6Y6Y6Y',
-  authDomain: 'authdomain',
-  databaseURL: 'https://databaseurl.firebaseio.com',
-  projectId: 'projectid',
-  storageBucket: 'storagebucket',
-  messagingSenderId: 'messagingSenderId',
-  appId: 'appid'
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID",
 };
 
-firebase.initializeApp(firebaseConfig);
-
-const auth = firebase.auth();
-const db = firebase.database();
-
-export { auth, db };
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
