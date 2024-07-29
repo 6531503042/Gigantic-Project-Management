@@ -2,6 +2,7 @@ import { Person, Project, Task } from "../types";
 
 export const defaultProjects: Project[] = [
   { id: "Gigantic-Backend", name: "Gigantic-Backend", createdAt: "2024-08-29" },
+  { id: "Gigantic-Frontend", name: "Gigantic-Frontend", createdAt: "2024-08-29" }
 ];
 
 export const defaultTasks: Task[] = [
@@ -36,7 +37,21 @@ export const defaultPeople: Person[] = [
   },
   {
     id: "2",
-    name: "Krtisakorn Sukkasem",
+    name: "Kritsakorn Sukkasem",
+    projectId: "Gigantic-Frontend",
+    image:
+      "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/da/dae0ebfdf40e6f460109d0fe059fc80943e8e59a.jpg",
+  },
+  {
+    id: "3",
+    name: "Kongphop Saenphai",
+    projectId: "Gigantic-Frontend",
+    image:
+      "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/da/dae0ebfdf40e6f460109d0fe059fc80943e8e59a.jpg",
+  },
+  {
+    id: "4",
+    name: "Phumiphat Wongsathit",
     projectId: "Gigantic-Frontend",
     image:
       "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/da/dae0ebfdf40e6f460109d0fe059fc80943e8e59a.jpg",
